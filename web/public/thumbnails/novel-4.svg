@@ -1,0 +1,23 @@
+<svg width="400" height="240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="novelGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed6e3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#novelGrad4)"/>
+  <rect x="120" y="40" width="160" height="120" fill="white" opacity="0.9" rx="4"/>
+  <rect x="130" y="50" width="140" height="100" fill="#fed6e3" opacity="0.3" rx="2"/>
+  <line x1="200" y1="50" x2="200" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+  <line x1="150" y1="70" x2="250" y2="70" stroke="white" stroke-width="1" opacity="0.4"/>
+  <line x1="150" y1="90" x2="250" y2="90" stroke="white" stroke-width="1" opacity="0.4"/>
+  <line x1="150" y1="110" x2="250" y2="110" stroke="white" stroke-width="1" opacity="0.4"/>
+  <line x1="150" y1="130" x2="250" y2="130" stroke="white" stroke-width="1" opacity="0.4"/>
+  <circle cx="160" cy="60" r="3" fill="white" opacity="0.6"/>
+  <circle cx="240" cy="60" r="3" fill="white" opacity="0.6"/>
+  <rect x="20" y="180" width="360" height="50" fill="black" opacity="0.6" rx="4"/>
+  <text x="200" y="200" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">스릴러 웹소설</text>
+  <text x="200" y="218" font-family="Arial, sans-serif" font-size="12" fill="#fed6e3" text-anchor="middle">완결작</text>
+  <text x="200" y="232" font-family="Arial, sans-serif" font-size="10" fill="#ffd93d" text-anchor="middle">📖 완결</text>
+</svg>
+

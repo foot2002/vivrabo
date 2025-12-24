@@ -1,0 +1,480 @@
+// requirementRegistry.ts
+// 요구사항정의서 기반 요구사항 레지스트리
+
+export type RequirementType = 
+  | "COM-REQ" | "USER-REQ" | "ADMIN-REQ" | "AI-REQ" 
+  | "PAY-REQ" | "CS-REQ" | "B2B-REQ";
+
+export interface Requirement {
+  id: string;
+  name: string;
+  category: string;
+  subCategory: string;
+  type: "기능" | "비기능";
+  description: string;
+  conditions?: string;
+}
+
+// 주요 비브라보 요구사항 (이미지에서 확인된 내용 기반)
+export const KEY_REQUIREMENTS: Record<string, Requirement> = {
+  // 공통 요구사항
+  "COM-REQ-001": {
+    id: "COM-REQ-001",
+    name: "콘텐츠 유형 4종 지정",
+    category: "공통",
+    subCategory: "정의/규격",
+    type: "기능",
+    description: "SHORTS, SUMMARY, AUDIO, NOVEL 4가지 콘텐츠 유형 정의",
+  },
+  "COM-REQ-002": {
+    id: "COM-REQ-002",
+    name: "콘텐츠 메타데이터 관리",
+    category: "공통",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 메타데이터 일관성 유지",
+  },
+  "COM-REQ-004": {
+    id: "COM-REQ-004",
+    name: "인증/세션 관리",
+    category: "공통",
+    subCategory: "인증",
+    type: "기능",
+    description: "JWT 기반 인증 및 세션 관리",
+  },
+  "COM-REQ-005": {
+    id: "COM-REQ-005",
+    name: "성능 최적화",
+    category: "공통",
+    subCategory: "비기능",
+    type: "비기능",
+    description: "평균 응답 2초 목표, 프리로딩 정책",
+  },
+  "COM-REQ-007": {
+    id: "COM-REQ-007",
+    name: "파일 업로드 관리",
+    category: "공통",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "대용량 파일 업로드 및 재개 정책",
+  },
+  "COM-REQ-008": {
+    id: "COM-REQ-008",
+    name: "비로그인 공개범위",
+    category: "공통",
+    subCategory: "권한",
+    type: "기능",
+    description: "비로그인 사용자 공개 범위 정책",
+  },
+  "COM-REQ-009": {
+    id: "COM-REQ-009",
+    name: "샘플구간 정책",
+    category: "공통",
+    subCategory: "권한",
+    type: "기능",
+    description: "샘플구간(전체 이용구간) 안내 및 정책",
+  },
+  "COM-REQ-010": {
+    id: "COM-REQ-010",
+    name: "모니터링/알림",
+    category: "공통",
+    subCategory: "운영",
+    type: "기능",
+    description: "시스템 모니터링 및 알림 연동",
+  },
+  "COM-REQ-012": {
+    id: "COM-REQ-012",
+    name: "개인정보 보호",
+    category: "공통",
+    subCategory: "보안",
+    type: "비기능",
+    description: "개인정보 최소수집/보관/파기 정책",
+  },
+  "COM-REQ-013": {
+    id: "COM-REQ-013",
+    name: "마스터데이터 관리",
+    category: "공통",
+    subCategory: "마스터관리",
+    type: "기능",
+    description: "장르/태그/언어 마스터데이터 연동",
+  },
+  
+  // 사용자 요구사항
+  "USER-REQ-001": {
+    id: "USER-REQ-001",
+    name: "회원가입",
+    category: "사용자",
+    subCategory: "회원",
+    type: "기능",
+    description: "이메일 기반 회원가입",
+  },
+  "USER-REQ-002": {
+    id: "USER-REQ-002",
+    name: "회원가입 프로세스",
+    category: "사용자",
+    subCategory: "회원",
+    type: "기능",
+    description: "약관 동의 및 기본정보 수집",
+  },
+  "USER-REQ-003": {
+    id: "USER-REQ-003",
+    name: "비밀번호 찾기",
+    category: "사용자",
+    subCategory: "회원",
+    type: "기능",
+    description: "이메일 인증 기반 비밀번호 재설정",
+  },
+  "USER-REQ-004": {
+    id: "USER-REQ-004",
+    name: "메인 홈",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "배너 및 콘텐츠 섹션 표시",
+  },
+  "USER-REQ-005": {
+    id: "USER-REQ-005",
+    name: "인기 콘텐츠",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "인기 콘텐츠 목록 제공",
+  },
+  "USER-REQ-006": {
+    id: "USER-REQ-006",
+    name: "신규 콘텐츠",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "신규 콘텐츠 목록 제공",
+  },
+  "USER-REQ-007": {
+    id: "USER-REQ-007",
+    name: "유형 우선 노출",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 유형 우선 노출 정책",
+  },
+  "USER-REQ-008": {
+    id: "USER-REQ-008",
+    name: "검색 기능",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "키워드 기반 콘텐츠 검색",
+  },
+  "USER-REQ-009": {
+    id: "USER-REQ-009",
+    name: "콘텐츠 상세",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 상세 정보 및 재생",
+  },
+  "USER-REQ-010": {
+    id: "USER-REQ-010",
+    name: "숏폼 뷰어",
+    category: "사용자",
+    subCategory: "뷰어",
+    type: "기능",
+    description: "60초 숏폼 영상 재생",
+  },
+  "USER-REQ-011": {
+    id: "USER-REQ-011",
+    name: "요약 뷰어",
+    category: "사용자",
+    subCategory: "뷰어",
+    type: "기능",
+    description: "10분 이내 요약 영상 재생",
+  },
+  "USER-REQ-012": {
+    id: "USER-REQ-012",
+    name: "오디오 플레이어",
+    category: "사용자",
+    subCategory: "뷰어",
+    type: "기능",
+    description: "롱폼 오디오 재생 및 이어듣기",
+  },
+  "USER-REQ-013": {
+    id: "USER-REQ-013",
+    name: "웹소설 리더",
+    category: "사용자",
+    subCategory: "뷰어",
+    type: "기능",
+    description: "텍스트 리더 및 이어읽기",
+  },
+  "USER-REQ-014": {
+    id: "USER-REQ-014",
+    name: "즐겨찾기",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 즐겨찾기 관리",
+  },
+  "USER-REQ-015": {
+    id: "USER-REQ-015",
+    name: "플레이리스트",
+    category: "사용자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "플레이리스트 생성 및 관리",
+  },
+  "USER-REQ-016": {
+    id: "USER-REQ-016",
+    name: "마이페이지",
+    category: "사용자",
+    subCategory: "회원",
+    type: "기능",
+    description: "사용자 정보 및 설정 관리",
+  },
+  "USER-REQ-018": {
+    id: "USER-REQ-018",
+    name: "권한 정책",
+    category: "사용자",
+    subCategory: "권한",
+    type: "기능",
+    description: "로그인/성인/구독 권한 분기",
+  },
+  
+  // 결제 요구사항
+  "PAY-REQ-001": {
+    id: "PAY-REQ-001",
+    name: "월 정기구독",
+    category: "결제",
+    subCategory: "구독",
+    type: "기능",
+    description: "월 단위 정기구독 서비스",
+  },
+  "PAY-REQ-003": {
+    id: "PAY-REQ-003",
+    name: "성인인증",
+    category: "결제",
+    subCategory: "인증",
+    type: "기능",
+    description: "PortOne SDK 기반 본인인증",
+  },
+  "PAY-REQ-005": {
+    id: "PAY-REQ-005",
+    name: "결제/환불 정책",
+    category: "결제",
+    subCategory: "정책",
+    type: "기능",
+    description: "결제 실패 UX 및 환불 정책",
+  },
+  "PAY-REQ-006": {
+    id: "PAY-REQ-006",
+    name: "정산 관리",
+    category: "결제",
+    subCategory: "정산",
+    type: "기능",
+    description: "PG 데이터 정합성 및 누락 탐지",
+  },
+  
+  // 관리자 요구사항
+  "ADMIN-REQ-001": {
+    id: "ADMIN-REQ-001",
+    name: "관리자 인증",
+    category: "관리자",
+    subCategory: "인증",
+    type: "기능",
+    description: "RBAC 기반 관리자 인증",
+  },
+  "ADMIN-REQ-002": {
+    id: "ADMIN-REQ-002",
+    name: "대시보드",
+    category: "관리자",
+    subCategory: "운영",
+    type: "기능",
+    description: "운영 지표 및 알림 대시보드",
+  },
+  "ADMIN-REQ-003": {
+    id: "ADMIN-REQ-003",
+    name: "콘텐츠 관리",
+    category: "관리자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 CRUD 및 검수",
+  },
+  "ADMIN-REQ-004": {
+    id: "ADMIN-REQ-004",
+    name: "콘텐츠 등록/수정",
+    category: "관리자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 등록 및 수정 폼",
+  },
+  "ADMIN-REQ-005": {
+    id: "ADMIN-REQ-005",
+    name: "배너 관리",
+    category: "관리자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "배너 CRUD 및 노출 관리",
+  },
+  "ADMIN-REQ-006": {
+    id: "ADMIN-REQ-006",
+    name: "사용자 관리",
+    category: "관리자",
+    subCategory: "회원",
+    type: "기능",
+    description: "사용자 조회 및 관리",
+  },
+  "ADMIN-REQ-007": {
+    id: "ADMIN-REQ-007",
+    name: "배포 관리",
+    category: "관리자",
+    subCategory: "배포",
+    type: "기능",
+    description: "SNS 채널 배포 관리",
+  },
+  "ADMIN-REQ-008": {
+    id: "ADMIN-REQ-008",
+    name: "AI 작업 관리",
+    category: "관리자",
+    subCategory: "AI",
+    type: "기능",
+    description: "AI 작업 모니터링 및 재시도",
+  },
+  "ADMIN-REQ-009": {
+    id: "ADMIN-REQ-009",
+    name: "IP 정보 관리",
+    category: "관리자",
+    subCategory: "IP관리",
+    type: "기능",
+    description: "저작권 등록정보 관리",
+  },
+  "ADMIN-REQ-010": {
+    id: "ADMIN-REQ-010",
+    name: "계약 관리",
+    category: "관리자",
+    subCategory: "계약관리",
+    type: "기능",
+    description: "라이선스 계약 관리",
+  },
+  "ADMIN-REQ-011": {
+    id: "ADMIN-REQ-011",
+    name: "만료 알림",
+    category: "관리자",
+    subCategory: "계약관리",
+    type: "기능",
+    description: "계약 만료 알림 설정",
+  },
+  "ADMIN-REQ-013": {
+    id: "ADMIN-REQ-013",
+    name: "마스터 관리",
+    category: "관리자",
+    subCategory: "마스터관리",
+    type: "기능",
+    description: "장르/태그/언어 마스터 CRUD",
+  },
+  "ADMIN-REQ-014": {
+    id: "ADMIN-REQ-014",
+    name: "검수/승인",
+    category: "관리자",
+    subCategory: "콘텐츠",
+    type: "기능",
+    description: "콘텐츠 검수 및 승인 프로세스",
+  },
+  "ADMIN-REQ-015": {
+    id: "ADMIN-REQ-015",
+    name: "글로벌 연동",
+    category: "관리자",
+    subCategory: "연동",
+    type: "기능",
+    description: "플랫폼별 API 연동 설정",
+  },
+  "ADMIN-REQ-016": {
+    id: "ADMIN-REQ-016",
+    name: "SNS 배포",
+    category: "관리자",
+    subCategory: "배포",
+    type: "기능",
+    description: "YouTube/X 등 SNS 채널 배포",
+  },
+  "ADMIN-REQ-017": {
+    id: "ADMIN-REQ-017",
+    name: "제3자 사용 이력",
+    category: "관리자",
+    subCategory: "수익화",
+    type: "기능",
+    description: "외부 사용처 이력 관리",
+  },
+  "ADMIN-REQ-018": {
+    id: "ADMIN-REQ-018",
+    name: "수익화 계약",
+    category: "관리자",
+    subCategory: "수익화",
+    type: "기능",
+    description: "계약 상대 배분율 관리",
+  },
+  "ADMIN-REQ-019": {
+    id: "ADMIN-REQ-019",
+    name: "정산 리포트",
+    category: "관리자",
+    subCategory: "정산",
+    type: "기능",
+    description: "정산 집계 및 리포트 생성",
+  },
+  "ADMIN-REQ-020": {
+    id: "ADMIN-REQ-020",
+    name: "B2B 카탈로그",
+    category: "관리자",
+    subCategory: "B2B",
+    type: "기능",
+    description: "B2B 카탈로그 생성 및 Export",
+  },
+  
+  // AI 요구사항
+  "AI-REQ-002": {
+    id: "AI-REQ-002",
+    name: "AI 요약 생성",
+    category: "AI",
+    subCategory: "요약",
+    type: "기능",
+    description: "콘텐츠 요약 자동 생성",
+  },
+  "AI-REQ-003": {
+    id: "AI-REQ-003",
+    name: "요약 품질 관리",
+    category: "AI",
+    subCategory: "요약",
+    type: "기능",
+    description: "요약 품질 검증 및 관리",
+  },
+  "AI-REQ-009": {
+    id: "AI-REQ-009",
+    name: "AI 추천 연계",
+    category: "AI",
+    subCategory: "추천",
+    type: "기능",
+    description: "AI 기반 콘텐츠 추천",
+  },
+  
+  // 고객서비스 요구사항
+  "CS-REQ-003": {
+    id: "CS-REQ-003",
+    name: "공지/FAQ",
+    category: "고객서비스",
+    subCategory: "지원",
+    type: "기능",
+    description: "공지사항 및 FAQ 관리",
+  },
+  "CS-REQ-004": {
+    id: "CS-REQ-004",
+    name: "점검 안내",
+    category: "고객서비스",
+    subCategory: "운영",
+    type: "기능",
+    description: "시스템 점검 안내 연동",
+  },
+};
+
+export function getRequirement(id: string): Requirement | undefined {
+  return KEY_REQUIREMENTS[id];
+}
+
+export function getAllRequirementIds(): string[] {
+  return Object.keys(KEY_REQUIREMENTS);
+}
+
